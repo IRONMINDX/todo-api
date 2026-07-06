@@ -18,8 +18,10 @@ class TodoService:
         
         return self.repository.create_todo(todo)
     
-    def get_all_todos(self):
-        return self.repository.get_all_todos()
+    def get_all_todos(self,page:int=1,page_size:int=10,search:str=None,status:str=None,priority:str=None):
+        if page < 1 or page_size < 1:
+            raise ValueError("Page and page size must be positive integers.")
+        return self.repository.get_all_todos(page=page,page_size=page_size,search=search,status=status,priority=priority)
     
     def get_todo(self, todo_id: str):
         todo = self.repository.get_todo(todo_id)

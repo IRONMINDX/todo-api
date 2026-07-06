@@ -36,10 +36,21 @@ def create_todo(
 
 @router.get("/", response_model=list[TodoResponse])
 def get_all_todos(
+    page: int = 1,
+    page_size: int = 10,
+    search: str = None,
+    status: str = None,
+    priority: str = None,
     db: Session = Depends(get_db)
 ):
     service = get_service(db)
-    return service.get_all_todos()
+    return service.get_all_todos(
+        page=page,
+        page_size=page_size,
+        search=search,
+        status=status,
+        priority=priority
+    )
 
 
 @router.get("/{todo_id}", response_model=TodoResponse)

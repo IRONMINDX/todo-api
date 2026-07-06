@@ -3,6 +3,9 @@ from app.db.database import Base
 from sqlalchemy import Column, String ,Boolean,DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
+from sqlalchemy .orm import relationship
+from app.models.todo import Todo
+
 
 class User(Base):
     __tablename__ = "users"
@@ -19,5 +22,7 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    todos = relationship("Todo", back_populates="user")
 
     
